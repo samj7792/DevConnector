@@ -78,7 +78,9 @@ router.post(
         config.get('jwtSecret'),
         { expiresIn: 360000 },
         (err, token) => {
+          // if there is an error, throw it
           if (err) throw err;
+          // else return the token in json format
           res.json({ token });
         }
       );
