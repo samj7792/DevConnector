@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 // Bring in the User model
@@ -43,8 +45,6 @@ router.post(
           .json({ errors: [{ msg: 'User already exists' }] });
       }
 
-      console.log('no current user');
-
       // Get users gravatar
       const avatar = gravatar.url(email, {
         // size
@@ -55,28 +55,33 @@ router.post(
         d: 'mm'
       });
 
-      console.log('gravatar made');
-
       user = new User({ name, email, avatar, password });
-
-      console.log('user created');
 
       // Encrypt password using bcrypt
       const salt = await bcrypt.genSalt(10);
 
-      console.log('salt created');
-
       user.password = await bcrypt.hash(password, salt);
 
-      console.log('password hashed');
-
+      // Save the user in the database
       await user.save();
 
-      console.log('user saved');
-
       // Return jsonwebtoken
+      const payload = {
+        user: {
+          // user.id is the _id from the mongodb
+          id: user.id
+        }
+      };
 
-      res.send('User registered');
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
