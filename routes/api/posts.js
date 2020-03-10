@@ -91,7 +91,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     // Check if post exists
     if (!post) {
-      return res.status(401).json({ msg: 'Post not found' });
+      return res.status(404).json({ msg: 'Post not found' });
     }
 
     // Check if user who created post is deleting
@@ -121,7 +121,7 @@ router.put('/like/:id', auth, async (req, res) => {
 
     // Check if post exists
     if (!post) {
-      return res.status(401).json({ msg: 'Post not found' });
+      return res.status(404).json({ msg: 'Post not found' });
     }
 
     // Check if the post has already been liked by the user
