@@ -45,7 +45,7 @@ const EditProfile = ({
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram
     });
-    // we want this to depend on the loading prop
+    // we want this to depend on when loading changes to false
   }, [loading]);
 
   const {
