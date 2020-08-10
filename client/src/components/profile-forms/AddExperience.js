@@ -1,18 +1,18 @@
-import React, { Fragment, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addExperience } from '../../actions/profile';
+import React, { Fragment, useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addExperience } from "../../actions/profile";
 
 const AddExperience = ({ addExperience, history }) => {
   const [formData, setFormData] = useState({
-    company: '',
-    title: '',
-    location: '',
-    from: '',
-    to: '',
+    company: "",
+    title: "",
+    location: "",
+    from: "",
+    to: "",
     current: false,
-    description: '',
+    description: "",
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
@@ -85,7 +85,7 @@ const AddExperience = ({ addExperience, history }) => {
                 setFormData({ ...formData, current: !current });
                 toggleDisabled(!toDateDisabled);
               }}
-            />{' '}
+            />{" "}
             Current Job
           </p>
         </div>
@@ -96,7 +96,7 @@ const AddExperience = ({ addExperience, history }) => {
             name='to'
             value={to}
             onChange={(e) => onChange(e)}
-            disabled={toDateDisabled ? 'disabled' : ''}
+            disabled={toDateDisabled ? "disabled" : ""}
           />
         </div>
         <div class='form-group'>
@@ -122,4 +122,4 @@ AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addExperience })(AddExperience);
+export default connect(null, { addExperience })(withRouter(AddExperience));
