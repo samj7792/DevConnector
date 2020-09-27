@@ -1,9 +1,11 @@
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
-import { getProfileById } from "../../actions/profile";
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import ProfileTop from './ProfileTop';
+import ProfileAbout from './ProfileAbout';
+import { getProfileById } from '../../actions/profile';
 
 // the match prop allows us to get the id from the URL using props.match.params.id
 // auth will check if we are viewing our own profile, allowing us to edit it
@@ -34,6 +36,10 @@ const Profile = ({
                 Edit Profile
               </Link>
             )}
+          <div className='profile-grid my-1'>
+            <ProfileTop profile={profile} />
+            <ProfileAbout profile={profile} />
+          </div>
         </Fragment>
       )}
     </Fragment>
