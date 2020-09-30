@@ -5,19 +5,17 @@ import { addPost } from '../../actions/post';
 
 const PostForm = ({ addPost }) => {
   const [text, setText] = useState('');
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addPost({ text });
+    setText('');
+  };
   return (
     <div className='post-form'>
       <div className='bg-primary p'>
         <h3>Say Something...</h3>
       </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addPost({ text });
-          setText('');
-        }}
-        className='form my-1'
-      >
+      <form onSubmit={(e) => onSubmit(e)} className='form my-1'>
         <textarea
           name='text'
           cols='30'
